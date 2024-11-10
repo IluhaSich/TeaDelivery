@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PersonalDiscountRepository extends BaseRepository<PersonalDiscount,Long>{
-//    PersonalDiscount getByDiscountName(String discountName);
+    PersonalDiscount getByDiscountName(String discountName);
 }

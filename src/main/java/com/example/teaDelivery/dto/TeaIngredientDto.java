@@ -1,0 +1,30 @@
+package com.example.teaDelivery.dto;
+
+import com.example.teaDelivery.entity.Ingredient;
+import com.example.teaDelivery.entity.Tea;
+
+public class TeaIngredientDto {
+    private Long teaId;
+    private Long ingredientId;
+
+    public TeaIngredientDto(Long teaId, Long ingredientId) {
+        this.teaId = teaId;
+        this.ingredientId = ingredientId;
+    }
+
+    public Long getTeaId() {
+        return teaId;
+    }
+
+    public void setTeaId(Long teaId) {
+        this.teaId = teaId;
+    }
+
+    public Long getIngredientId() {
+        return ingredientId;
+    }
+
+    public void setIngredientId(Long ingredientId) {
+        this.ingredientId = ingredientId;
+    }
+}
