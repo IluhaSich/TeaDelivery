@@ -38,7 +38,7 @@ public class MyCommandLineRunner implements CommandLineRunner {
         teaRepository.save(tea1);
         for (int i = 0 ; i < 10;i++){
             Tea newTea = new Tea();
-            newTea.setSort(i < 5 ?"black tea": "green tea");
+            newTea.setSort(i % 2 == 0 ?"black tea": "green tea");
             newTea.setName("Name:" + i);
             newTea.setImage(i+".webp");
             newTea.setCost(200 + i);
