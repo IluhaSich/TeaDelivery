@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <main class="jumbotron text-center rounded col-md-12 align-self-center pt-5">
+
+                <div class="row bg-light rounded">
+                    <h2>Последний заказанный Чай</h2>
+                    <h4 th:text="'image: ' + ${model.lastTea.image}"></h4>
+                    <h4 th:text="'name: ' + ${model.lastTea.name}"></h4>
+                    <h4 th:text="'desc: ' + ${model.lastTea.description}"></h4>
+                    <h4 th:text="'sort: ' + ${model.lastTea.sort}"></h4>
+                    <h4 th:text="'price: ' + ${model.lastTea.cost}"></h4>
+                    <h4 th:text="'inStock: ' + ${model.lastTea.availability}"></h4>
+                    <h4 th:text="'supplier: ' + ${model.lastTea.suppliers}"></h4>
+                </div>
+                <div>
+                <div class="justify-content-center">
+                    <h1>Скидки</h1>
+                </div>
+                    <div th:each="discount : ${model.personalDiscounts}"
+                         class="d-flex flex-column bg-text mb-3 p-3 border rounded">
+                        <h2 th:text="${discount.discountName}">Название скидки</h2>
+                        <h2 th:text="'Описание: '+${discount.description}"></h2>
+                        <h2 th:text="'Сорт: '+${discount.teaSort}"></h2>
+                        <h2 th:text="'Скидка: '+${discount.discount}"></h2>
+                        <div class="mt-2">
+                            <a class="btn btn-secondary">
+                                <!--                               th:href="@{/books/{id}(id=${book.id})}"-->
+                                Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="justify-content-center">
+                        <h1>Каталог сортов чая</h1>
+                    </div>
+                    <div th:each="sort : ${model.sorts}"
+                         class="d-flex flex-column bg-text mb-3 p-3 border rounded">
+                        <h2 th:text="'Сорт: ' + ${sort}">Сорт чая</h2>
+                        <div class="mt-2">
+                            <a class="btn btn-secondary">
+                                <!--                               th:href="@{/books/{id}(id=${book.id})}"-->
+                                Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>
+
+
+
+

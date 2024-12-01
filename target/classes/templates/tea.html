@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <main class="jumbotron text-center rounded col-md-12 align-self-center pt-5">
+                <div class="justify-content-center">
+                    <h1>Информация о чае</h1>
+                </div>
+                <div class="row bg-light rounded">
+                        <h2>Чай</h2>
+                        <h4 th:text="'image: ' + ${model.image}"></h4>
+                        <h4 th:text="'name: ' + ${model.name}"></h4>
+                        <h4 th:text="'desc: ' + ${model.desc}"></h4>
+                        <h4 th:text="'sort: ' + ${model.sort}"></h4>
+                        <div th:each="ingredient : ${model.ingredients}">
+                            <h4 th:text="'ingredient: ' + ${model.ingredient}"></h4>
+                        </div>
+
+                        <h4 th:text="'price: ' + ${model.price}"></h4>
+                        <h4 th:text="'inStock: ' + ${model.inStock}"></h4>
+                        <h4 th:text="'supplier: ' + ${model.supplier}"></h4>
+                        <h4 th:text="'hasDiscount: ' + ${model.hasDiscount}"></h4>
+                </div>
+            </main>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>
