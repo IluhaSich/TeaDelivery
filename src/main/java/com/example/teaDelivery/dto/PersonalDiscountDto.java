@@ -15,6 +15,10 @@ public class PersonalDiscountDto {
         this.wasUsed = wasUsed;
     }
 
+    public PersonalDiscountDto() {
+
+    }
+
     public String getDiscountName() {
         return discountName;
     }

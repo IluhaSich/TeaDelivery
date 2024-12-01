@@ -10,6 +10,9 @@ public class ClientDto {
     private String phoneNumber;
     private int loyaltyPoints;
 
+
+    public ClientDto(){}
+
     public ClientDto(String name, LocalDate registrationDate, String email, String password, String phoneNumber, int loyaltyPoints) {
         this.name = name;
         this.registrationDate = registrationDate;

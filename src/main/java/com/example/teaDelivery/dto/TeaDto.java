@@ -2,7 +2,7 @@ package com.example.teaDelivery.dto;
 
 import com.example.teaDelivery.entity.Supplier;
 
-public class TeaDto {
+public class TeaDto  extends BaseDto{
     private String sort;
     private String name;
     private String image;

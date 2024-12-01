@@ -9,6 +9,7 @@ import com.example.teaDelivery.repository.TeaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,9 +34,24 @@ public class TeaService implements BaseService<TeaDto,Tea> {
         return teaRepository.getBySort(sort).stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
+    public TeaDto getTeaById(Long id){
+        return convertToDto(teaRepository.getById(id).orElseThrow(() -> new RuntimeException("Чай не найден")));
+    }
+
+    public TeaDto getLastTea(){
+        // TODO: Реализовать получение последнего заказанного чая из общего списка заказов
+        System.out.println(teaRepository.findAll().getFirst().getName());
+        return convertToDto(teaRepository.findAll().getFirst());
+    }
+
+    public List<String> getAllSorts(){
+        return teaRepository.findAllDistinctSort();
+    }
+
     @Override
     public TeaDto convertToDto(Tea tea) {
         TeaDto teaDto = new TeaDto();
+        teaDto.setId(tea.getId());
         teaDto.setSort(tea.getSort());
         teaDto.setName(tea.getName());
         teaDto.setImage(tea.getImage());
