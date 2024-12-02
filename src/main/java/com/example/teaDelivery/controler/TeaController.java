@@ -15,6 +15,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO: Реализовать вход для пользователей (Админов?)
+//TODO: Реализовать добавление в корзину товара (в Redis)
+//TODO: Добавить пагинацию
+//TODO: Заполнить все параметры в таблице значениями
+//TODO: Убрать методы заглушки, заменив на нормальные
+//TODO: ???
+
 @Controller
 @RequestMapping("/")
 public class TeaController implements MainController {
@@ -22,52 +29,57 @@ public class TeaController implements MainController {
     IngredientService ingredientService;
     SupplierService supplierService;
 
-//    @Autowired // TODO: нужно ли?
+    List<PersonalDiscountViewModel> personalDiscountViewModels = new ArrayList<>(List.of());
+
     public TeaController(TeaService teaService, IngredientService ingredientService, SupplierService supplierService) {
         this.teaService = teaService;
         this.ingredientService = ingredientService;
         this.supplierService = supplierService;
+        //TODO: Убрать заглушку для List<PersonalDiscountViewModel>
+        personalDiscountViewModels.add(new PersonalDiscountViewModel("Черная пятница", "black description", "black tea", 10, false));
+        personalDiscountViewModels.add(new PersonalDiscountViewModel("Зеленая пятница", "green description", "green tea", 20, false));
     }
 
     @Override
     @GetMapping("/")
     public String GetMain(Model model) {
-//        List<PersonalDiscountDto> personalDiscountDtos = new ArrayList<>(List.of());
-//        personalDiscountDtos.add(new PersonalDiscountDto("Черная пятница","black description","black tea",10,false));
-//        personalDiscountDtos.add(new PersonalDiscountDto("Зеленая пятница","green description","green tea",20,false));
-//        MainViewModel viewModel = new MainViewModel(
-//                new ClientDto(),
-//                teaService.getLastTea(),
-//                personalDiscountDtos,
-//                teaService.getAllSorts()
-//                ); //TODO: Сделать нормальное заполнение данных с нормальными запросами
-//        model.addAttribute("model", viewModel);
+
+        TeaDto teaDto = teaService.getLastTea();
+        ClientViewModel clientViewModel = new ClientViewModel();
+        TeaViewModel teaViewModel = new TeaViewModel(
+                teaDto.getId(),
+                clientViewModel,
+                teaDto.getImage(),
+                teaDto.getName(),
+                teaDto.getDescription(),
+                teaDto.getSort(),
+                ingredientService.getIngredientsByTeaId(teaDto.getId()),
+                teaDto.getCost(),
+                teaDto.isAvailability(),
+                supplierService.getSupplierById(teaDto.getSuppliers()).getSupplier_name(),
+                false // TODO: has discount
+
+        );
+        MainViewModel viewModel = new MainViewModel(
+                clientViewModel,
+                teaViewModel,
+                personalDiscountViewModels,
+                teaService.getAllSorts()
+        ); //TODO: Сделать нормальное заполнение данных с нормальными запросами
+        model.addAttribute("model", viewModel);
         return "index";
-//        List<PersonalDiscountDto> personalDiscountDtos = new ArrayList<>(List.of());
-//        personalDiscountDtos.add(new PersonalDiscountDto("Черная пятница","black description","black tea",10,false));
-//        personalDiscountDtos.add(new PersonalDiscountDto("Зеленая пятница","green description","green tea",20,false));
-//        TeaDto tea = teaService.getLastTea();
-//        MainViewModel viewModel = new MainViewModel(
-//                new ClientViewModel(),
-//                new TeaViewModel(
-//                        new ClientViewModel(),
-//                        tea.getImage(),
-//                        tea.getName(),
-//                        tea.getDescription(),
-//                        tea.getSort(),
-//                        ingredientService.getIngredientsByTeaId(tea.getId()),
-//                        tea.getCost(),
-//                        tea.isAvailability(),
-//                        supplierService.getSupplierById(tea.getSuppliers()).getSupplier_name(),
-//                        false),
-//                null,
-//                teaService.getAllSorts()
-//        );
     }
 
     @GetMapping("/tea")
-    public String getAllTea(Model model, TeaFilter filter) {
-        List<TeaDto> teasDto = teaService.getAllTea();//TODO: .getAllTea(SearchTerm)
+    public String getAllTea(@ModelAttribute("form") TeaFilter form, Model model) {
+        String name = form.name() != null ? form.name() : "";
+        String sort = form.sort() != null ? form.sort() : "";
+        Integer startCost = form.startCost() != null ? form.startCost() : 0;
+        Integer endCost = form.endCost() != null ? form.endCost() : 9999;
+        form = new TeaFilter(name, sort, startCost, endCost);
+
+
+        List<TeaDto> teasDto = teaService.getAllTea(form.name(),form.sort(),form.startCost(),form.endCost());//TODO: .getAllTea(SearchTerm)
         List<TeaViewModel> teas = teasDto.stream().map(q -> new TeaViewModel(
                 q.getId(),
                 new ClientViewModel(),
@@ -79,14 +91,15 @@ public class TeaController implements MainController {
                 q.getCost(),
                 q.isAvailability(),
                 supplierService.getSupplierById(q.getSuppliers()).getSupplier_name(),
-                false)).toList();
+                false // TODO: has discount
+        )).toList();
         AllTeaViewModel allTeaViewModel = new AllTeaViewModel(
                 new ClientViewModel(),
                 teas,
-                filter,
-                new PersonalDiscountViewModel()
+                form
         );
         model.addAttribute("model", allTeaViewModel);
+        model.addAttribute("form", form);
         return "tea-list";
     }
 
@@ -105,7 +118,8 @@ public class TeaController implements MainController {
                 tea.getCost(),
                 tea.isAvailability(),
                 supplierService.getSupplierById(tea.getSuppliers()).getSupplier_name(),
-                false);
+                false // TODO: has discount
+        );
         model.addAttribute("model", teaViewModel);
         return "tea";
     }

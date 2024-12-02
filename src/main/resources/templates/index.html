@@ -11,19 +11,19 @@
 
                 <div class="row bg-light rounded">
                     <h2>Последний заказанный Чай</h2>
-                    <h4 th:text="'image: ' + ${model.lastTea.image}"></h4>
-                    <h4 th:text="'name: ' + ${model.lastTea.name}"></h4>
-                    <h4 th:text="'desc: ' + ${model.lastTea.description}"></h4>
-                    <h4 th:text="'sort: ' + ${model.lastTea.sort}"></h4>
-                    <h4 th:text="'price: ' + ${model.lastTea.cost}"></h4>
-                    <h4 th:text="'inStock: ' + ${model.lastTea.availability}"></h4>
-                    <h4 th:text="'supplier: ' + ${model.lastTea.suppliers}"></h4>
+                    <h4 th:text="'image: ' + ${model.teaViewModel.image}"></h4>
+                    <h4 th:text="'name: ' + ${model.teaViewModel.name}"></h4>
+                    <h4 th:text="'desc: ' + ${model.teaViewModel.desc}"></h4>
+                    <h4 th:text="'sort: ' + ${model.teaViewModel.sort}"></h4>
+                    <h4 th:text="'price: ' + ${model.teaViewModel.cost}"></h4>
+                    <h4 th:text="'inStock: ' + ${model.teaViewModel.availability}"></h4>
+                    <h4 th:text="'supplier: ' + ${model.teaViewModel.supplier}"></h4>
                 </div>
                 <div>
                 <div class="justify-content-center">
                     <h1>Скидки</h1>
                 </div>
-                    <div th:each="discount : ${model.personalDiscounts}"
+                    <div th:each="discount : ${model.personalDiscountViewModels}"
                          class="d-flex flex-column bg-text mb-3 p-3 border rounded">
                         <h2 th:text="${discount.discountName}">Название скидки</h2>
                         <h2 th:text="'Описание: '+${discount.description}"></h2>

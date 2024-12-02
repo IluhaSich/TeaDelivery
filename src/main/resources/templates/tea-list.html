@@ -8,26 +8,35 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="jumbotron text-center rounded col-md-8 align-self-center pt-5">
-<!--                <h2 class="text-center text-dark mt-5">Поиск книг</h2>-->
+                <h2 class="text-center text-dark mt-5">Поиск чая</h2>
 
-<!--                <form th:action="@{/books}"-->
-<!--                      th:method="get"-->
-<!--                      th:object="${form}"-->
-<!--                      class="mb-3">-->
-<!--                    <div class="input-group">-->
-<!--                        <input type="text"-->
-<!--                               th:field="*{searchTerm}"-->
-<!--                               class="form-control"-->
-<!--                               placeholder="Поиск по названию или автору"/>-->
-<!--                        <input type="hidden" th:field="*{page}" />-->
-<!--                        <input type="hidden" th:field="*{size}" />-->
-<!--                        <button class="btn btn-primary" type="submit">Поиск</button>-->
-<!--                    </div>-->
-<!--                </form>-->
+                <form th:action="@{/tea}"
+                      th:method="get"
+                      th:object="${form}"
+                      class="mb-3">
+                    <div class="input-group">
+                        <input type="text"
+                               th:field="*{name}"
+                               class="form-control"
+                               placeholder="Поиск по названию"/>
+                        <input type="text"
+                               th:field="*{sort}"
+                               class="form-control"
+                               placeholder="Поиск по сорту"/>
+                        <input type="number"
+                               th:field="*{startCost}"
+                               class="form-control"
+                               placeholder="min price"
+                               min="0" max="9999"/>
+                        <input type="number"
+                               th:field="*{endCost}"
+                               class="form-control"
+                               placeholder="max price"
+                               min="0" max="9999"/>
 
-<!--                <div th:if="${#lists.isEmpty(model.books)}" class="alert alert-info">-->
-<!--                    Книги не найдены-->
-<!--                </div>-->
+                        <button class="btn btn-primary" type="submit">Поиск</button>
+                    </div>
+                </form>
 
                 <div th:if="${not #lists.isEmpty(model.teas)}">
 
@@ -38,7 +47,7 @@
                         <h2 th:text="'Цена: ' + ${tea.cost}">Цена</h2>
                         <h2 th:text="'В наличии: ' + ${tea.availability}">В наличии</h2>
                         <h2 th:text="'Сорт: ' + ${tea.sort}">Сорт</h2>
-                        <h2 th:text="'Поставщик: ' + ${tea.suppliers}">Поставщик</h2>
+                        <h2 th:text="'Поставщик: ' + ${tea.supplier}">Поставщик</h2>
 <!--                        <h4 th:text="'Год издания: ' + ${tea.year}">Действует скидка?</h4>-->
                         <div class="mt-2">
                             <a class="btn btn-secondary"
