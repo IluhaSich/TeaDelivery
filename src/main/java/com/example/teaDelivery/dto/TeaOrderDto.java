@@ -5,7 +5,7 @@ import com.example.teaDelivery.entity.PersonalDiscount;
 
 import java.time.LocalDateTime;
 
-public class TeaOrderDto {
+public class TeaOrderDto extends BaseDto{
     private Long client;
     private LocalDateTime time;
     private Long personalDiscount;
@@ -17,9 +17,10 @@ public class TeaOrderDto {
     private String deliveryZip;
     private String orderStatus;
 
-    public TeaOrderDto(Long client, LocalDateTime time, Long personalDiscount, double cost,
+    public TeaOrderDto(Long id,Long client, LocalDateTime time, Long personalDiscount, double cost,
                        LocalDateTime deliveryDate, String deliveryCity, String deliveryState,
                        String deliveryStreet, String deliveryZip, String orderStatus) {
+        setId(id);
         this.client = client;
         this.time = time;
         this.personalDiscount = personalDiscount;

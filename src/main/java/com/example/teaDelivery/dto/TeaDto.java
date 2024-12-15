@@ -14,7 +14,8 @@ public class TeaDto  extends BaseDto{
     public TeaDto() {
     }
 
-    public TeaDto(String sort, String name, String image, double cost, String description, Long suppliers, boolean availability) {
+    public TeaDto(Long id,String sort, String name, String image, double cost, String description, Long suppliers, boolean availability) {
+        setId(id);
         this.sort = sort;
         this.name = name;
         this.image = image;

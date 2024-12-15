@@ -15,7 +15,7 @@ public interface TeaRepository extends BaseRepository<Tea,Long>{
     List<Tea> getByAvailability(boolean availability);
     @Query("SELECT DISTINCT t.sort FROM Tea t")
     List<String> findAllDistinctSort();
-    List<Tea> findByNameContainingIgnoreCase(String name);
-    List<Tea> findByNameContainingIgnoreCaseAndSortContainingIgnoreCaseAndCostGreaterThanAndCostLessThan(String name,String sort,int startCost, int endCost);
-//    List<Tea> findByNameContainingIgnoreCaseAndSortContainingIgnoreCase(String name,String sort);
+    Page<Tea> findAll(Pageable pageable);
+    Page<Tea> findByNameContainingIgnoreCaseAndSortContainingIgnoreCaseAndCostGreaterThanAndCostLessThan
+            (String name,String sort,int startCost, int endCost,Pageable pageable);
 }

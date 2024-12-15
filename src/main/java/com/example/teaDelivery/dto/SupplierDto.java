@@ -1,10 +1,11 @@
 package com.example.teaDelivery.dto;
 
-public class SupplierDto {
+public class SupplierDto extends BaseDto{
     private String supplier_name;
     private String email;
 
-    public SupplierDto(String supplier_name, String email) {
+    public SupplierDto(Long id,String supplier_name, String email) {
+        setId(id);
         this.supplier_name = supplier_name;
         this.email = email;
     }

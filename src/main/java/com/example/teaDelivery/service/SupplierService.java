@@ -23,6 +23,7 @@ public class SupplierService implements BaseService<SupplierDto, Supplier> {
     @Override
     public SupplierDto convertToDto(Supplier supplier) {
         SupplierDto supplierDto = new SupplierDto(
+                supplier.getId(),
                 supplier.getSupplier_name(),
                 supplier.getEmail()
         );

@@ -1,9 +1,10 @@
 package com.example.teaDelivery.dto;
 
-public class IngredientDto {
+public class IngredientDto extends BaseDto{
     private String ingredient_name;
 
-    public IngredientDto(String ingredient_name) {
+    public IngredientDto(Long id,String ingredient_name) {
+        setId(id);
         this.ingredient_name = ingredient_name;
     }
 

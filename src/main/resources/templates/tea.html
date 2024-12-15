@@ -11,14 +11,15 @@
                 <div class="justify-content-center">
                     <h1>Информация о чае</h1>
                 </div>
-                <div class="row bg-light rounded">
+                <div class="d-flex flex-column bg-text mb-3 p-3 border rounded">
                         <h2>Чай</h2>
                         <h4 th:text="'image: ' + ${model.image}"></h4>
                         <h4 th:text="'name: ' + ${model.name}"></h4>
                         <h4 th:text="'desc: ' + ${model.desc}"></h4>
                         <h4 th:text="'sort: ' + ${model.sort}"></h4>
-                        <div th:each="ingredient : ${model.ingredients}">
-                            <h4 th:text="'ingredient: ' + ${model.ingredient}"></h4>
+                        <h3 th:text="Ingredients"></h3>
+                        <div class="row bg-light rounded" th:each="ingredient : ${model.ingredients}">
+                            <h4 th:text="${ingredient}"></h4>
                         </div>
 
                         <h4 th:text="'price: ' + ${model.cost}"></h4>

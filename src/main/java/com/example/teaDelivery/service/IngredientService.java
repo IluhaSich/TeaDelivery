@@ -1,5 +1,7 @@
 package com.example.teaDelivery.service;
 
+import com.example.teaDelivery.dto.IngredientDto;
+import com.example.teaDelivery.entity.Ingredient;
 import com.example.teaDelivery.entity.TeaIngredient;
 import com.example.teaDelivery.repository.IngredientRepository;
 import com.example.teaDelivery.repository.TeaIngredientRepository;
@@ -29,4 +31,5 @@ public class IngredientService {
                 .map(teaIngredient -> teaIngredient.getIngredientId().getIngredient_name())
                 .collect(Collectors.toList());
     }
+
 }

@@ -1,13 +1,14 @@
 package com.example.teaDelivery.dto;
 
-public class PersonalDiscountDto {
+public class PersonalDiscountDto extends BaseDto{
     private String discountName;
     private String description;
     private String teaSort;
     private double discount;
     private boolean wasUsed;
 
-    public PersonalDiscountDto(String discountName, String description, String teaSort, double discount, boolean wasUsed) {
+    public PersonalDiscountDto(Long id,String discountName, String description, String teaSort, double discount, boolean wasUsed) {
+        setId(id);
         this.discountName = discountName;
         this.description = description;
         this.teaSort = teaSort;

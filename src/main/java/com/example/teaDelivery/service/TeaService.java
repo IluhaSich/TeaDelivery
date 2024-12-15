@@ -32,14 +32,22 @@ public class TeaService implements BaseService<TeaDto, Tea> {
         this.ingredientRepository = ingredientRepository;
     }
 
-    public List<TeaDto> getAllTea(String name, String sort, int startCost, int endCost) {
-        List<Tea> teas = name != null
-                ? teaRepository.findByNameContainingIgnoreCaseAndSortContainingIgnoreCaseAndCostGreaterThanAndCostLessThan(name,sort,startCost,endCost)
-//                ? teaRepository.findByNameContainingIgnoreCaseAndSortContainingIgnoreCase(name,sort)
-//                ? teaRepository.findByTitleContainingIgnoreCase(searchTerm, pageable) //TODO: Pageable?
-                : teaRepository.findAll();
-//                : teaRepository.findAll(pageable);
-        return teas.stream().map(this::convertToDto).collect(Collectors.toList());
+    public Page<TeaDto> getAllTea(String name, String sort, int startCost, int endCost,int page,int size) {
+        Pageable pageable = PageRequest.of(page - 1,size,Sort.by("name"));
+        Page<Tea> teas = name != null
+                ? teaRepository.findByNameContainingIgnoreCaseAndSortContainingIgnoreCaseAndCostGreaterThanAndCostLessThan
+                (name,sort,startCost,endCost,pageable)
+                : teaRepository.findAll(pageable);
+        return teas.map(tea -> new TeaDto(
+                tea.getId(),
+                tea.getSort(),
+                tea.getName(),
+                tea.getImage(),
+                tea.getCost(),
+                tea.getDescription(),
+                tea.getSuppliers().getId(),
+                tea.isAvailability()
+        ));
     }
 
 

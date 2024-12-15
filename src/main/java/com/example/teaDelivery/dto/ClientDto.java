@@ -2,7 +2,7 @@ package com.example.teaDelivery.dto;
 
 import java.time.LocalDate;
 
-public class ClientDto {
+public class ClientDto extends BaseDto{
     private String name;
     private LocalDate registrationDate;
     private String email;
@@ -13,7 +13,8 @@ public class ClientDto {
 
     public ClientDto(){}
 
-    public ClientDto(String name, LocalDate registrationDate, String email, String password, String phoneNumber, int loyaltyPoints) {
+    public ClientDto(Long id,String name, LocalDate registrationDate, String email, String password, String phoneNumber, int loyaltyPoints) {
+        setId(id);
         this.name = name;
         this.registrationDate = registrationDate;
         this.email = email;

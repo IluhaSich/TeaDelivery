@@ -10,7 +10,7 @@
             <div class="jumbotron text-center rounded col-md-8 align-self-center pt-5">
                 <h2 class="text-center text-dark mt-5">Поиск чая</h2>
 
-                <form th:action="@{/tea}"
+                <form th:action="@{/tea/}"
                       th:method="get"
                       th:object="${form}"
                       class="mb-3">
@@ -33,7 +33,8 @@
                                class="form-control"
                                placeholder="max price"
                                min="0" max="9999"/>
-
+                        <input type="hidden" th:field="*{page}" />
+                        <input type="hidden" th:field="*{size}" />
                         <button class="btn btn-primary" type="submit">Поиск</button>
                     </div>
                 </form>
@@ -42,7 +43,8 @@
 
                     <div th:each="tea : ${model.teas}"
                          class="d-flex flex-column bg-text mb-3 p-3 border rounded">
-<!--                        <img class="" src="/static/images/orange-cookie.webp">-->
+<!--                        <img th:src="${tea.image}">-->
+<!--                        <img th:src="orange-cookie.webp">-->
                         <h2 th:text="'Название: ' + ${tea.name}">Название чая</h2>
                         <h2 th:text="'Цена: ' + ${tea.cost}">Цена</h2>
                         <h2 th:text="'В наличии: ' + ${tea.availability}">В наличии</h2>
@@ -55,17 +57,23 @@
                         </div>
                     </div>
 
-<!--                    <nav th:if="${model.totalPages > 1}" aria-label="Page navigation">-->
-<!--                        <ul class="pagination justify-content-center">-->
-<!--                            <li class="page-item"-->
-<!--                                th:each="pageNumber : ${#numbers.sequence(1, model.totalPages)}"-->
-<!--                                th:classappend="${pageNumber == form.page} ? 'active'">-->
-<!--                                <a class="page-link"-->
-<!--                                   th:href="@{/books(page=${pageNumber}, size=${form.size}, searchTerm=${form.searchTerm})}"-->
-<!--                                   th:text="${pageNumber}">1</a>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </nav>-->
+                    <nav th:if="${model.totalPages > 1}" aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item"
+                                th:each="pageNumber : ${#numbers.sequence(1, model.totalPages)}"
+                                th:classappend="${pageNumber == form.page} ? 'active'">
+                                <a class="page-link"
+                                   th:href="@{/tea/(
+                                   page=${pageNumber},
+                                   size=${form.size},
+                                   name=${form.name},
+                                   sort=${form.sort},
+                                   startCost=${form.startCost},
+                                   endCost=${form.endCost})}"
+                                   th:text="${pageNumber}">1</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
 
 <!--                <div class="mt-4">-->
